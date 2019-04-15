@@ -4,30 +4,32 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>系统登录界面</title>
     <style>
-        .div{
-            height:300px;
-            width:500px;
-            position:absolute;
-            top:30%;
-            left:40%; 
-            background-color:beige;
+        .div {
+            height: 300px;
+            width: 500px;
+            position: absolute;
+            top: 30%;
+            left: 40%;
+            background-color: beige;
         }
-        .p{
-            font-family:"楷体";
-            font-size:40px;
-            font-weight:800;
+
+        .p {
+            font-family: "楷体";
+            font-size: 40px;
+            font-weight: 800;
         }
+
         .auto-style1 {
             height: 42px;
         }
     </style>
 </head>
-<body  background="img/bg1.gif">
+<body background="img/bg1.gif">
     <form id="form1" runat="server">
-    <center><div class="div">
+        <center><div class="div">
    <p class="p">加班管理系统</p>
     <table width="400" border="0" cellspacing="0" cellpadding="0">
   <tr>

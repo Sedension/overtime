@@ -28,19 +28,19 @@
         <!-- 左侧导航区域 -->
         <ul class="layui-nav layui-nav-tree" lay-filter="test">
             <li class="layui-nav-item">
-                <a href="javascript:(0)"  onclick="showMenu('admin.aspx')">加班项目管理</a>
+                <a href="javascript:(0)"  onclick="showMenu('admin.aspx')">项目管理</a>
             </li>
                         <li class="layui-nav-item">
-                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">加班人员管理</a>
+                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">人员管理</a>
             </li>
                         <li class="layui-nav-item">
-                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">加班项目发布</a>
+                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">项目发布</a>
             </li>
                         <li class="layui-nav-item">
-                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">加班项目审批</a>
+                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">项目审批</a>
             </li>
                         <li class="layui-nav-item">
-                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">加班数据统计</a>
+                <a href="javascript:(0)"  onclick="showMenu('login.aspx')">数据统计</a>
             </li>
         </ul>
     </div>

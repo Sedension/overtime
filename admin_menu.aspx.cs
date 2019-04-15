@@ -11,6 +11,5 @@ public partial class admin_menu : System.Web.UI.Page
     {
         FormsAuthentication.SignOut();
         Response.Redirect("~/login.aspx");
-
     }
 }

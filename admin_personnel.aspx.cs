@@ -4,27 +4,25 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI.WebControls;
 
-public partial class admin : System.Web.UI.Page
+public partial class admin_personnel : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
         if (!IsPostBack)
         {
-            {
-                databind();
-            }
+           databind();  
         }
     }
     public void databind()
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_leader union select * from all_personnel", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
 
-
+ 
         GridView1.DataSource = dt1;
         GridView1.DataBind();
     }
@@ -37,7 +35,7 @@ public partial class admin : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_leader union select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
@@ -58,7 +56,7 @@ public partial class admin : System.Web.UI.Page
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
+            SqlCommand cmd = new SqlCommand("select * from all_leader union select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
             conn.Open();//打开连接
             cmd.ExecuteNonQuery();
             SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
@@ -76,28 +74,5 @@ public partial class admin : System.Web.UI.Page
         {
             Response.Write("<script>alert('查询不能为空')</script>");
         }
-    }
-    protected void GridView1_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)
-    {
-        ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
-        string id = GridView1.Rows[e.NewSelectedIndex].Cells[0].Text;
-        SqlConnection conn = new SqlConnection();
-        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where Date_ID=" + id + "", conn);
-        conn.Open();//打开连接
-        SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
-        if (dr1.Read())  //while
-        {
-            Label1.Text = dr1["Date_ID"].ToString();
-            Label2.Text = dr1["project_date"].ToString();
-            Label3.Text = dr1["name"].ToString();
-            Label4.Text = dr1["start_time"].ToString();
-            Label5.Text = dr1["project_time"].ToString();
-            Label6.Text = dr1["end_time"].ToString();
-            Label7.Text = dr1["details"].ToString();
-            Label8.Text = dr1["remarks"].ToString();
-            Label9.Text = dr1["department"].ToString();
-        }
-        conn.Close();//关闭连接
     }
 }

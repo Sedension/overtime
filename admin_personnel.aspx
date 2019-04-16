@@ -17,8 +17,8 @@
                 <Columns>
                     <asp:BoundField DataField="user_id" HeaderText="账号" />
                     <asp:BoundField DataField="user_name" HeaderText="姓名" />
-                    <asp:BoundField DataField="department" HeaderText="部门" />
                     <asp:BoundField DataField="position" HeaderText="职位" />
+                    <asp:BoundField DataField="department" HeaderText="部门" />
                     <asp:CommandField ButtonType="Button" ShowEditButton="True">
                     </asp:CommandField>
                     <asp:CommandField ButtonType="Button" ShowDeleteButton="True" />

@@ -17,7 +17,7 @@ public partial class admin_personnel : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_leader union select * from all_personnel", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_personnel", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
@@ -35,7 +35,7 @@ public partial class admin_personnel : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_leader union select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
@@ -56,7 +56,7 @@ public partial class admin_personnel : System.Web.UI.Page
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_leader union select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
+            SqlCommand cmd = new SqlCommand("select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
             conn.Open();//打开连接
             cmd.ExecuteNonQuery();
             SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader

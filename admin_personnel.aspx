@@ -16,7 +16,7 @@
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
                     <asp:BoundField DataField="user_id" HeaderText="账号" />
-                    <asp:BoundField DataField="name" HeaderText="姓名" />
+                    <asp:BoundField DataField="user_name" HeaderText="姓名" />
                     <asp:BoundField DataField="department" HeaderText="部门" />
                     <asp:BoundField DataField="position" HeaderText="职位" />
                     <asp:CommandField ButtonType="Button" ShowEditButton="True">
@@ -34,7 +34,7 @@
         <div class="div6">
             <asp:DropDownList ID="DropDownList1" runat="server">
                 <asp:ListItem Value="user_id">账号</asp:ListItem>
-                <asp:ListItem Value="name">姓名</asp:ListItem>
+                <asp:ListItem Value="user_name">姓名</asp:ListItem>
                 <asp:ListItem Value="position">职位</asp:ListItem>
                 <asp:ListItem Value="department">部门</asp:ListItem>
             </asp:DropDownList>

@@ -90,7 +90,7 @@ public partial class admin : System.Web.UI.Page
         {
             Label1.Text = dr1["Date_ID"].ToString();
             Label2.Text = dr1["project_date"].ToString();
-            Label3.Text = dr1["name"].ToString();
+            Label3.Text = dr1["user_name"].ToString();
             Label4.Text = dr1["start_time"].ToString();
             Label5.Text = dr1["project_time"].ToString();
             Label6.Text = dr1["end_time"].ToString();

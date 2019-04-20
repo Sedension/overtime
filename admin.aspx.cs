@@ -10,9 +10,7 @@ public partial class admin : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            {
-                databind();
-            }
+            databind();
         }
     }
     public void databind()
@@ -89,14 +87,14 @@ public partial class admin : System.Web.UI.Page
         if (dr1.Read())  //while
         {
             Label1.Text = dr1["Date_ID"].ToString();
-            Label2.Text = dr1["project_date"].ToString();
-            Label3.Text = dr1["user_name"].ToString();
-            Label4.Text = dr1["start_time"].ToString();
-            Label5.Text = dr1["project_time"].ToString();
-            Label6.Text = dr1["end_time"].ToString();
-            Label7.Text = dr1["details"].ToString();
-            Label8.Text = dr1["remarks"].ToString();
-            Label9.Text = dr1["department"].ToString();
+            TextBox3.Text = dr1["project_date"].ToString();
+            TextBox4.Text = dr1["user_name"].ToString();
+            TextBox5.Text = dr1["department"].ToString();
+            TextBox6.Text = dr1["start_time"].ToString();
+            TextBox7.Text = dr1["project_time"].ToString();
+            TextBox8.Text = dr1["end_time"].ToString();
+            TextBox9.Text = dr1["details"].ToString();
+            TextBox10.Text = dr1["remarks"].ToString();
         }
         conn.Close();//关闭连接
     }

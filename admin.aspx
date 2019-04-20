@@ -7,9 +7,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
     <link href="js/layui/css/layui.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="css/css.css" />
+    <link href="css/css.css" rel="stylesheet" />
+    <script src="js/jquery.min.js"></script>
+    <script src="js/lyz.calendar.min.js"></script>
+    <link href="css/lyz.calendar.css" rel="stylesheet" />
     <style>
-        .pup-up {
+        .pup-up233{
             display: none;
             position: absolute;
             top: 15%;
@@ -18,59 +21,98 @@
             padding: 50px;
             border: 1px solid #C0C0C0;
             background-color: white;
-            z-index: 1;
+            /*z-index: 1;*/
             -webkit-box-shadow: 0px 3px 3px #c8c8c8;
             -moz-box-shadow: 0px 3px 3px #c8c8c8;
             box-shadow: 0px 3px 3px #c8c8c8;
             font-family: "微软雅黑";
+            float:none;
         }
     </style>
     <script>
         function on() {
             document.getElementById("light").style.display = "block";
+            //document.getElementById("light1").style.display = "none";
         }
         function close() {
             document.getElementById('light').style.display = 'none';
         }
+        $(function () {
+
+            $("#TextBox3").calendar({
+
+                controlId: "divDate",                                 // 弹出的日期控件ID，默认: $(this).attr("id") + "Calendar"
+
+                speed: 200,                                           // 三种预定速度之一的字符串("slow", "normal", or "fast")或表示动画时长的毫秒数值(如：1000),默认：200
+
+                complement: true,                                     // 是否显示日期或年空白处的前后月的补充,默认：true
+
+                readonly: true,                                       // 目标对象是否设为只读，默认：true
+
+                upperLimit: new Date(),                               // 日期上限，默认：NaN(不限制)
+
+                lowerLimit: new Date("2011/01/01"),                   // 日期下限，默认：NaN(不限制)
+
+                //callback: function () {                               // 点击选择日期后的回调函数
+
+
+                //}
+
+            });
+        });
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="light" runat="server" class="pup-up">
+        <div id="light" runat="server" class="pup-up233">
             编&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 号：<asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
             <br />
             <br />
-            日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 期：<asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
+            日&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 期：<asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
             <br />
             <br />
-            加班人员：<asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
+            加班人员：<asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
             <br />
             <br />
-            部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 门：<asp:Label ID="Label9" runat="server" Text="Label"></asp:Label>
+            部&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 门：<asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
             <br />
             <br />
-            开始时间：<asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+            开始时间：<asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
             <br />
             <br />
-            时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 长：<asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
+            时&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 长：<asp:TextBox ID="TextBox7" runat="server"></asp:TextBox>
             <br />
             <br />
-            结束时间：<asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>
+            结束时间：<asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
             <br />
             <br />
-            加班事由：<asp:Label ID="Label7" Style="word-break: break-all;" Width="300" runat="server" Text="Label"></asp:Label>
-            <br />
+            <table border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td valign="top">加班事由：</td>
+                    <td valign="top">
+                        <asp:TextBox ID="TextBox9" runat="server"></asp:TextBox>
+                    </td>
+                </tr>
+            </table>
             <br />
             <table border="0" cellspacing="0" cellpadding="0">
                 <tr>
                     <td valign="top">备&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 注：</td>
                     <td valign="top">
-                        <asp:Label ID="Label8" Style="word-break: break-all;" Width="300" runat="server" Text="Label"></asp:Label></td>
+                        <asp:TextBox ID="TextBox10" runat="server"></asp:TextBox>
+                    </td>
                 </tr>
             </table>
-            <button id="b1" style="position: absolute; left: 40%; bottom: 5%;" class="layui-btn layui-btn-primary layui-btn-sm" onclick="close()">关&nbsp; 闭</button>
+            <br />
+            <br />
+            <table border="0" cellspacing="0" cellpadding="0" style="position: absolute; left: 40%; bottom: 5%;">
+                <tr>
+                    <td><button id="b1"  class="layui-btn layui-btn-primary layui-btn-sm" onclick="close()">编&nbsp; 辑</button></td>
+                    <td><button id="b2"  class="layui-btn layui-btn-primary layui-btn-sm" onclick="close()">关&nbsp; 闭</button></td>
+                </tr>
+            </table>
         </div>
-        <div class="div2">
+        <div class="div2" id="light1" style="z-index:-1">
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" EnableModelValidation="True" OnSelectedIndexChanging="GridView1_SelectedIndexChanging">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>

@@ -119,7 +119,7 @@
                     <asp:BoundField DataField="Date_ID" HeaderText="任务编号" />
                     <asp:BoundField DataField="project_date" HeaderText="日期" DataFormatString="{0:d}" />
                     <asp:BoundField DataField="user_name" HeaderText="姓名" />
-                    <asp:BoundField DataField="project_time" HeaderText="时长(单位/小时)" DataFormatString="{0:t}" />
+                    <asp:BoundField DataField="project_time" HeaderText="时长(单位/小时)" />
                     <asp:BoundField DataField="review" HeaderText="审核状态" />
                     <asp:CommandField ButtonType="Button" SelectText="详情" ShowSelectButton="True">
                         <ControlStyle CssClass="layui-btn layui-btn-primary layui-btn-sm" />

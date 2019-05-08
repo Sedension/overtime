@@ -4,7 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>员工界面</title>
     <link href="js/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body class="layui-layout-body">
@@ -29,16 +29,10 @@
                     <!-- 左侧导航区域 -->
                     <ul class="layui-nav layui-nav-tree" lay-filter="test">
                         <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('leader.aspx')">任务信息</a>
+                            <a href="javascript:(0)" onclick="showMenu('personnel.aspx')">信息汇总</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">项目登记</a>
-                        </li>
-                        <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">项目申请</a>
-                        </li>
-                        <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">数据统计</a>
+                            <a href="javascript:(0)" onclick="showMenu('personnel_new.aspx')">项目登记</a>
                         </li>
                     </ul>
                 </div>
@@ -48,7 +42,7 @@
                 <!-- 内容主体区域 -->
                 <div>
 
-                    <iframe id="ifm" src="admin.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=700">
+                    <iframe id="ifm" src="personnel.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=700">
 
                         <%--<iframe id="ifm" src="default.aspx" frameborder="0" width="100%" height="480" style="margin:0px 0px 0px 10px">--%>
 

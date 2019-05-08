@@ -22,26 +22,45 @@
             font-weight: 800;
         }
 
-        .auto-style1 {
-            height: 42px;
+        .table {
+            height: 50px;
+            width: 100%;
+        }
+
+        .table-l {
+            float: left;
+            width: 40%;
+            text-align: right;
+        }
+
+        .table-r {
+            float: right;
+            width: 60%;
+            text-align: left;
         }
     </style>
 </head>
-<body background="img/bg1.gif">
+<body>
     <form id="form1" runat="server">
         <center><div class="div">
    <p class="p">加班管理系统</p>
-    <table width="400" border="0" cellspacing="0" cellpadding="0">
-  <tr>
-    <td width="135" colspan="2" align="center" valign="middle" class="auto-style1">
-      帐号：<asp:TextBox ID="TextBox1" runat="server" onkeyup="if(isNaN(value))execCommand('undo')" onfocus="if (value =='请输入数字'){value =''}" onblur="if (value ==''){value='请输入数字'}" value="请输入数字"  MaxLength="10"></asp:TextBox><br />
-      密码：<asp:TextBox ID="TextBox2" runat="server" TextMode="Password"></asp:TextBox><br />
-      </td>
-  </tr>
-  </table>
-<br />
-        <asp:Button ID="Button1" runat="server" Text="登录" OnClick="Button1_Click"></asp:Button>&nbsp&nbsp&nbsp<asp:Button ID="Button2" runat="server" OnClick="Button2_Click" Text="重置" />
-&nbsp;</div>
+                <div class="table">
+                <div class="table-l">帐号：</div>
+                <div class="table-r">
+<asp:TextBox ID="TextBox1" runat="server" onkeyup="if(isNaN(value))execCommand('undo')" onfocus="if (value =='请输入数字'){value =''}" onblur="if (value ==''){value='请输入数字'}" value="请输入数字"  MaxLength="10" Width="120px"></asp:TextBox>
+                </div>
+            </div>
+                  <div class="table">
+                <div class="table-l">密码：</div>
+                <div class="table-r">
+            <asp:TextBox ID="TextBox2" runat="server" TextMode="Password" Width="120px"></asp:TextBox>          
+                </div>
+            </div>
+            <div class="table">
+                <div class="table-l"><asp:Button ID="Button1" class="layui-btn layui-btn-primary layui-btn-sm" runat="server" Text="登录" OnClick="Button1_Click">     </asp:Button></div>
+                <div class="table-r" style="text-align:center"><asp:Button ID="Button2" class="layui-btn layui-btn-primary layui-btn-sm" runat="server" OnClick="Button2_Click" Text="重置" /></div>
+            </div>
+</div>
     </form>
 </body>
 </html>

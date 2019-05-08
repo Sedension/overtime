@@ -1,9 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="leader_menu.aspx.cs" Inherits="leader_menu" %>
+
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <title>领导界面</title>
     <link href="js/layui/css/layui.css" rel="stylesheet" />
 </head>
 <body class="layui-layout-body">
@@ -31,16 +32,16 @@
                             <a href="javascript:(0)" onclick="showMenu('leader.aspx')">项目管理</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">人员管理</a>
+                            <a href="javascript:(0)" onclick="showMenu('leader_project_review.aspx')">项目审批</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">项目发布</a>
+                            <a href="javascript:(0)" onclick="showMenu('leader_release.aspx')">项目发布</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">项目审批</a>
+                            <a href="javascript:(0)" onclick="showMenu('leader_personnel.aspx')">人员管理</a>
                         </li>
                         <li class="layui-nav-item">
-                            <a href="javascript:(0)" onclick="showMenu('login.aspx')">加班数据统计</a>
+                            <a href="javascript:(0)" onclick="showMenu('leader_project_data.aspx')">数据统计</a>
                         </li>
                     </ul>
                 </div>
@@ -49,9 +50,7 @@
             <div class="layui-body" style="bottom: 0px">
                 <!-- 内容主体区域 -->
                 <div>
-                    <iframe id="ifm" src="admin.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=700">
-                        <%--<iframe id="ifm" src="default.aspx" frameborder="0" width="100%" height="480" style="margin:0px 0px 0px 10px">--%>
-                    </iframe>
+                    <iframe id="ifm" src="leader.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=700"></iframe>
 
                 </div>
             </div>

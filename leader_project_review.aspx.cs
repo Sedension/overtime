@@ -5,10 +5,12 @@ using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class admin : System.Web.UI.Page
+
+public partial class leader_project_review : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+
         if (!IsPostBack)
         {
             databind();
@@ -17,19 +19,22 @@ public partial class admin : System.Web.UI.Page
         {
             if (item is TextBox)
             {
+                ((TextBox)item).Attributes.Add("readonly", "False");
                 ((TextBox)item).Attributes.Add("autocomplete", "off");
-                ((TextBox)item).Attributes.Add("readonly", "True");
             }
         }
     }
     public void databind()
     {
+        string department = Session["department"].ToString();
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_project  where department='" + department + "'and review='未审核'", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
+
+
         GridView1.DataSource = dt1;
         GridView1.DataBind();
     }
@@ -38,30 +43,35 @@ public partial class admin : System.Web.UI.Page
         GridView1.PageIndex = e.NewPageIndex;
         databind();
     }
+
     public void databind1()
     {
-        string ceshi = Request.Form["ceshi"];
+        string department = Session["department"].ToString();
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + ceshi + "%'", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'and department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
+
+
         GridView1.DataSource = dt1;
         GridView1.DataBind();
     }
+
     protected void Button2_Click(object sender, EventArgs e)
     {
         databind();
     }
+
     protected void Button1_Click(object sender, EventArgs e)
     {
-        string ceshi = Request.Form["ceshi"];
-        if (ceshi != "")
+        if (TextBox1.Text.Trim() != "")
         {
+            string department = Session["department"].ToString();
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + ceshi + "%'", conn);//访问数据库的SQL语句存到了cmd中
+            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'and department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
             conn.Open();//打开连接
             cmd.ExecuteNonQuery();
             SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
@@ -102,79 +112,39 @@ public partial class admin : System.Web.UI.Page
             TextBox10.Text = dr1["remarks"].ToString();
         }
         conn.Close();//关闭连接
-        foreach (Control item in form1.Controls)
-        {
-            if (item is TextBox)
-            {
-                ((TextBox)item).Attributes.Add("readonly", "False");
-            }
-        }
+
     }
+
     protected void Button3_Click(object sender, EventArgs e)
     {
-        string pan = Button3.Text.ToString();
-        if (pan == "编辑")
-        {
-            foreach (Control item in form1.Controls)
-            {
-                if (item is TextBox)
-                {
-                    ((TextBox)item).Attributes.Remove("readonly");
-                }
-            }
-            Button3.Text = "保存";
-            Button4.Text = "取消";
-            ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
-        }
-        if (pan == "保存")
-        {
-            foreach (Control item in form1.Controls)
-            {
-                if (item is TextBox)
-                {
-                    ((TextBox)item).Attributes.Add("readonly", "True");
-                }
-            }
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            string id = Label1.Text;
-            SqlCommand cmd = new SqlCommand("update all_project set project_date='" + TextBox3.Text.Trim() + "',user_name='" + TextBox4.Text.Trim() + "',department='" + TextBox5.Text.Trim() + "',start_time='" + TextBox6.Text.Trim() + "',end_time='" + TextBox8.Text.Trim() + "',details='" + TextBox9.Text.Trim() + "',remarks='" + TextBox10.Text.Trim() + "'where Date_ID=" + id + "", conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-            SqlCommand cmd1 = new SqlCommand("select * from all_project where Date_ID=" + id + "", conn);
-            conn.Open();
-            SqlDataReader dr1 = cmd1.ExecuteReader();  //创建获取datareader
-            if (dr1.Read())  //while
-            {
-                Label2.Text = dr1["project_time"].ToString() + "分钟";
-            }
-            conn.Close();
-            databind();
-            Button3.Text = "编辑";
-            Button4.Text = "关闭";
-            ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
-        }
+        string department = Session["department"].ToString();
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        string id = Label1.Text;
+        SqlCommand cmd = new SqlCommand("update all_project set review='一级审批完成' where Date_ID=" + id + "and department='" + department + "'", conn);
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        databind();
+        ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
     }
+
     protected void Button4_Click(object sender, EventArgs e)
     {
-        string pan = Button4.Text.ToString();
-        if (pan == "关闭")
-        {
-            ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
-        }
-        if (pan == "取消")
-        {
-            foreach (Control item in form1.Controls)
-            {
-                if (item is TextBox)
-                {
-                    ((TextBox)item).Attributes.Add("readonly", "True");
-                }
-            }
-            Button3.Text = "编辑";
-            Button4.Text = "关闭";
-            ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
-        }
+        ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+    }
+
+    protected void Button5_Click(object sender, EventArgs e)
+    {
+        string department = Session["department"].ToString();
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        string id = Label1.Text;
+        SqlCommand cmd = new SqlCommand("update all_project set review='一级审批失败' where Date_ID=" + id + "and department='" + department + "'", conn);
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        databind();
+        ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
     }
 }

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="leader.aspx.cs" Inherits="leader" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="leader_project_review.aspx.cs" Inherits="leader_project_review" %>
 
 <!DOCTYPE html>
 
@@ -132,9 +132,11 @@
             </div>
             <div style="height: 50px; width: 100%; margin-top: 10%;">
                 <div class="table-l">
-                    <asp:Button ID="Button3" runat="server" Text="编辑" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button3_Click" />
+                    <asp:Button ID="Button3" runat="server" Text="通过" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button3_Click" />
                 </div>
                 <div style="float: right; width: 80%; text-align: center">
+                    <asp:Button ID="Button5" runat="server" Text="拒绝" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button5_Click" />
+                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="Button4" runat="server" Text="关闭" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button4_Click" />
                 </div>
             </div>
@@ -148,6 +150,7 @@
                     <asp:BoundField DataField="user_name" HeaderText="姓名" />
                     <asp:BoundField DataField="project_time" HeaderText="时长(单位/分钟)" />
                     <asp:BoundField DataField="review" HeaderText="审核状态" />
+
                     <asp:CommandField ButtonType="Button" SelectText="详情" ShowSelectButton="True">
                         <ControlStyle CssClass="layui-btn layui-btn-primary layui-btn-sm" />
                     </asp:CommandField>
@@ -166,7 +169,7 @@
                 <asp:ListItem Value="user_name">名字</asp:ListItem>
                 <asp:ListItem Value="review">审核状态</asp:ListItem>
             </asp:DropDownList>
-            <input type="text" id="ceshi" runat="server">
+            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
             &nbsp;<asp:Button ID="Button1" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
             <asp:Button ID="Button2" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button2_Click" Text="查询全部" />
         </div>

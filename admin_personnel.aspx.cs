@@ -10,7 +10,11 @@ public partial class admin_personnel : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-           databind();  
+            if (Session == null)
+            {
+                Response.Write("<script>alert('请重新登录！');location ='login.aspx';</script>");
+            }
+            databind();
         }
     }
     public void databind()
@@ -22,13 +26,23 @@ public partial class admin_personnel : System.Web.UI.Page
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
 
- 
+
         GridView1.DataSource = dt1;
         GridView1.DataBind();
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
+        databind();
+    }
+    protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
+    {
+        GridView1.EditIndex = -1;
+        databind();
+    }
+    protected void GridView1_RowEditing1(object sender, GridViewEditEventArgs e)
+    {
+        GridView1.EditIndex = e.NewEditIndex;  //GridView编辑项索引等于单击行的索引
         databind();
     }
     public void databind1()
@@ -74,5 +88,33 @@ public partial class admin_personnel : System.Web.UI.Page
         {
             Response.Write("<script>alert('查询不能为空')</script>");
         }
+    }
+
+    protected void GridView1_RowUpdating(object sender, GridViewUpdateEventArgs e)
+    {
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        string user_id = GridView1.DataKeys[e.RowIndex].Values[0].ToString();
+        string user_name = (GridView1.Rows[e.RowIndex].Cells[1].Controls[0] as TextBox).Text.Trim();
+        string position = (GridView1.Rows[e.RowIndex].Cells[2].Controls[0] as TextBox).Text.Trim();
+        string department = (GridView1.Rows[e.RowIndex].Cells[3].Controls[0] as TextBox).Text.Trim();
+        SqlCommand cmd = new SqlCommand("update all_personnel set user_name='" + user_name + "',position='" + position + "', department='" + department + "'where user_id=" + user_id + "", conn);
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        GridView1.EditIndex = -1;
+        databind();
+    }
+    protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
+    {
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        string user_id = GridView1.DataKeys[e.RowIndex].Values[0].ToString();
+        SqlCommand cmd = new SqlCommand("delete from all_personnel where user_id=" + user_id + " delete from all_user where user_id= " + user_id + "", conn);
+        conn.Open();
+        cmd.ExecuteNonQuery();
+        conn.Close();
+        databind();
+
     }
 }

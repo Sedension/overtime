@@ -14,6 +14,7 @@
         }
         #login {
             position: absolute;
+            margin:auto;
             padding: 50px;
             width: 250px;
             height: 400px;
@@ -21,7 +22,7 @@
             box-shadow: 5px 5px 50px silver;
             border-radius: 10px;
             top: 25%;
-            left: 65%;
+            left: 60%;
         }
         .login-table{
             height:50px;

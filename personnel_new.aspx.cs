@@ -56,11 +56,11 @@ public partial class personnel_new : System.Web.UI.Page
             conn.Open();
             cmd.ExecuteNonQuery();
             conn.Close();
-            Response.Write("<script>alert('提交成功')</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('提交成功')</script>");
         }
         else
         {
-            Response.Write("<script>alert('输入信息要完整')</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('输入信息要完整')</script>");
         }
     }
 }

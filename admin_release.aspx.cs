@@ -52,7 +52,7 @@ public partial class release : Page
         conn.Open();
         cmd.ExecuteNonQuery();
         conn.Close();
-        Response.Write("<script>alert('发布成功')</script>");
+        ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('发布成功')</script>");
     }
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
     {

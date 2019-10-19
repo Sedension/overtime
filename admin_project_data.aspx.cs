@@ -58,7 +58,7 @@ public partial class admin_project_data : System.Web.UI.Page
             string time = dr1["project_time"].ToString();
             if (time == "")
             {
-                Response.Write("<script>alert('没有查到数据！')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('没有查到数据！')</script>");
             }
             else
             {

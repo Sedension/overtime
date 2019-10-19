@@ -9,45 +9,6 @@
     <link href="js/layui/css/layui.css" rel="stylesheet" />
     <script src="js/layui/layui.js"></script>
     <link href="css/css.css" rel="stylesheet" />
-    <style>
-        .pup-up233 {
-            display: none;
-            position: absolute;
-            top: 15%;
-            left: 35%;
-            width: 400px;
-            padding: 50px;
-            border: 1px solid #C0C0C0;
-            background-color: white;
-            -webkit-box-shadow: 0px 3px 3px #c8c8c8;
-            -moz-box-shadow: 0px 3px 3px #c8c8c8;
-            box-shadow: 0px 3px 3px #c8c8c8;
-            font-family: "宋体";
-            float: none;
-        }
-
-        .table {
-            height: 30px;
-            width: 100%;
-        }
-
-        .table1 {
-            height: 80px;
-            width: 100%;
-        }
-
-        .table-l {
-            float: left;
-            width: 20%;
-            text-align: right;
-        }
-
-        .table-r {
-            float: right;
-            width: 80%;
-            text-align: left;
-        }
-    </style>
     <script>
         function on() {
             document.getElementById("light").style.display = "block";
@@ -75,73 +36,73 @@
 </head>
 <body>
     <form id="form1" runat="server">
-        <div id="light" class="pup-up233">
+        <div id="light" class="details">
             <div class="table">
-                <div class="table-l">编号：</div>
-                <div class="table-r">
+                <div class="table-left">编号：</div>
+                <div class="table-right">
                     <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                 </div>
             </div>
             <div class="table">
-                <div class="table-l">日期：</div>
-                <div class="table-r">
+                <div class="table-left">日期：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox3" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="table">
-                <div class="table-l">加班人员：</div>
-                <div class="table-r">
+                <div class="table-left">加班人员：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox4" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="table">
-                <div class="table-l">部门：</div>
-                <div class="table-r">
+                <div class="table-left">部门：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox5" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="table">
-                <div class="table-l">开始时间：</div>
-                <div class="table-r">
+                <div class="table-left">开始时间：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox6" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="table">
-                <div class="table-l">结束时间：</div>
-                <div class="table-r">
+                <div class="table-left">结束时间：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox8" runat="server"></asp:TextBox>
                 </div>
             </div>
             <div class="table">
-                <div class="table-l">时长：</div>
-                <div class="table-r">
+                <div class="table-left">时长：</div>
+                <div class="table-right">
                     <asp:Label ID="Label2" runat="server" Text="Label"></asp:Label>
                 </div>
             </div>
             <div class="table1">
-                <div class="table-l">加班事由：</div>
-                <div class="table-r">
+                <div class="table-left">加班事由：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox9" runat="server" Height="80px" TextMode="MultiLine" Width="300px"></asp:TextBox>
                 </div>
             </div>
             <div class="table1">
-                <div class="table-l">备注信息：</div>
-                <div class="table-r">
+                <div class="table-left">备注信息：</div>
+                <div class="table-right">
                     <asp:TextBox ID="TextBox10" runat="server" Height="80px" TextMode="MultiLine" Width="300px"></asp:TextBox>
                 </div>
             </div>
             <div style="height: 50px; width: 100%; margin-top: 10%;">
-                <div class="table-l">
+                <div class="table-left">
                     <asp:Button ID="Button3" runat="server" Text="通过" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button3_Click" />
                 </div>
-                <div style="float: right; width: 80%; text-align: center">
+                <div class="table-right-1">
                     <asp:Button ID="Button5" runat="server" Text="拒绝" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button5_Click" />
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <asp:Button ID="Button4" runat="server" Text="关闭" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button4_Click" />
                 </div>
             </div>
         </div>
-        <div class="div2" id="light1" style="z-index: -1">
+        <div class="div2" id="light1">
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" EnableModelValidation="True" OnSelectedIndexChanging="GridView1_SelectedIndexChanging" OnPageIndexChanging="GridView1_PageIndexChanging1" AllowPaging="True" PageSize="20">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>

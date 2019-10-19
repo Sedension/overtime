@@ -9,7 +9,7 @@ public partial class personnel_menu : System.Web.UI.Page
     {
         if (Session["user_name"] == null)
         {
-            Response.Write("<script>alert('请重新登录！');location ='login.aspx';</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
         }
         Label1.Text = Session["user_name"].ToString();
     }

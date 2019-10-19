@@ -39,6 +39,6 @@ public partial class admin_personnel_insert : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         cmd1.ExecuteNonQuery();
         conn.Close();
-        Response.Write("<script>alert('添加成功')</script>");
+        ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('添加成功')</script>");
     }
 }

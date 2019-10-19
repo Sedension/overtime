@@ -12,7 +12,7 @@ public partial class admin_personnel : System.Web.UI.Page
         {
             if (Session == null)
             {
-                Response.Write("<script>alert('请重新登录！');location ='login.aspx';</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
             }
             databind();
         }
@@ -33,17 +33,17 @@ public partial class admin_personnel : System.Web.UI.Page
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
-        databind();
+        databind1();
     }
     protected void GridView1_RowCancelingEdit(object sender, GridViewCancelEditEventArgs e)
     {
         GridView1.EditIndex = -1;
-        databind();
+        databind1();
     }
     protected void GridView1_RowEditing1(object sender, GridViewEditEventArgs e)
     {
         GridView1.EditIndex = e.NewEditIndex;  //GridView编辑项索引等于单击行的索引
-        databind();
+        databind1();
     }
     public void databind1()
     {
@@ -80,13 +80,15 @@ public partial class admin_personnel : System.Web.UI.Page
             }
             else
             {
-                Response.Write("<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
+                TextBox1.Text = "";
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
+                databind();
             }
             conn.Close();//关闭连接
         }
         else
         {
-            Response.Write("<script>alert('查询不能为空')</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询不能为空!')</script>");
         }
     }
 
@@ -103,7 +105,7 @@ public partial class admin_personnel : System.Web.UI.Page
         cmd.ExecuteNonQuery();
         conn.Close();
         GridView1.EditIndex = -1;
-        databind();
+        databind1();
     }
     protected void GridView1_RowDeleting(object sender, GridViewDeleteEventArgs e)
     {

@@ -15,7 +15,7 @@ public partial class personnel : System.Web.UI.Page
         {
             if (Session["user_name"] == null)
             {
-                Response.Write("<script>alert('请重新登录！');location ='login.aspx';</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
             }
             else
             {
@@ -103,13 +103,13 @@ public partial class personnel : System.Web.UI.Page
             }
             else
             {
-                Response.Write("<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
             }
             conn.Close();//关闭连接
         }
         else
         {
-            Response.Write("<script>alert('查询不能为空')</script>");
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询不能为空')</script>");
         }
     }
     protected void GridView1_SelectedIndexChanging(object sender, GridViewSelectEventArgs e)

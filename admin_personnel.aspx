@@ -12,11 +12,12 @@
 <body>
     <form id="form1" runat="server">
         <div class="div2">
-            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" EnableModelValidation="True" DataKeyNames="user_id" OnPageIndexChanging="GridView1_PageIndexChanging1" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowEditing="GridView1_RowEditing1" OnRowUpdating="GridView1_RowUpdating" AllowPaging="True" PageSize="20">
+            <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" DataKeyNames="user_id" OnPageIndexChanging="GridView1_PageIndexChanging1" OnRowCancelingEdit="GridView1_RowCancelingEdit" OnRowDeleting="GridView1_RowDeleting" OnRowEditing="GridView1_RowEditing1" OnRowUpdating="GridView1_RowUpdating" AllowPaging="True" PageSize="20">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
                     <asp:BoundField DataField="user_id" HeaderText="账号" ReadOnly="True" />
                     <asp:BoundField DataField="user_name" HeaderText="姓名" />
+                    <asp:BoundField DataField="user_type" HeaderText="身份" />
                     <asp:BoundField DataField="position" HeaderText="职位" />
                     <asp:BoundField DataField="department" HeaderText="部门" />
                     <asp:CommandField ButtonType="Button" ShowEditButton="True"></asp:CommandField>

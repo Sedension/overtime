@@ -74,8 +74,10 @@
                 <div class="table-right">
                     <asp:TextBox ID="TextBox6" runat="server" Height="80px" TextMode="MultiLine" Width="300px"></asp:TextBox>
                 </div>
+                
             </div>
             <div class="table1">
+                <br />
                 <div class="table-left">备注信息：</div>
                 <div class="table-right">
                     <asp:TextBox ID="TextBox7" runat="server" Height="80px" TextMode="MultiLine" Width="300px"></asp:TextBox>

@@ -69,6 +69,7 @@
                 </div>
             </div>
             <div class="table1">
+                <br />
                 <div class="table-left">加班事由：</div>
                 <div class="table-right">
                     <asp:TextBox ID="TextBox6" runat="server" Height="80px" TextMode="MultiLine" Width="300px"></asp:TextBox>

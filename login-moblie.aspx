@@ -10,7 +10,7 @@
     <link href="css/css.css" rel="stylesheet" />
     <style>
         .bg {
-            background: url("image/login.jpg") no-repeat;
+            background: url("image/login-moblie.jpg") no-repeat;
             /*该图片由Free-PhotosPixabay上发布*/
         }
     </style>

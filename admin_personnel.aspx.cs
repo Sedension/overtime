@@ -21,7 +21,7 @@ public partial class admin_personnel : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_personnel", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from  v_personnel", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
@@ -49,7 +49,7 @@ public partial class admin_personnel : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from  v_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
         DataTable dt1 = new DataTable();
         SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
         adp.Fill(dt1);
@@ -70,7 +70,7 @@ public partial class admin_personnel : System.Web.UI.Page
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
+            SqlCommand cmd = new SqlCommand("select * from  v_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);//访问数据库的SQL语句存到了cmd中
             conn.Open();//打开连接
             cmd.ExecuteNonQuery();
             SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
@@ -97,10 +97,11 @@ public partial class admin_personnel : System.Web.UI.Page
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
         string user_id = GridView1.DataKeys[e.RowIndex].Values[0].ToString();
-        string user_name = (GridView1.Rows[e.RowIndex].Cells[1].Controls[0] as TextBox).Text.Trim();
-        string position = (GridView1.Rows[e.RowIndex].Cells[2].Controls[0] as TextBox).Text.Trim();
-        string department = (GridView1.Rows[e.RowIndex].Cells[3].Controls[0] as TextBox).Text.Trim();
-        SqlCommand cmd = new SqlCommand("update all_personnel set user_name='" + user_name + "',position='" + position + "', department='" + department + "'where user_id=" + user_id + "", conn);
+        string user_password = (GridView1.Rows[e.RowIndex].Cells[1].Controls[0] as TextBox).Text.Trim();
+        string user_name = (GridView1.Rows[e.RowIndex].Cells[2].Controls[0] as TextBox).Text.Trim();
+        string position = (GridView1.Rows[e.RowIndex].Cells[3].Controls[0] as TextBox).Text.Trim();
+        string department = (GridView1.Rows[e.RowIndex].Cells[4].Controls[0] as TextBox).Text.Trim();
+        SqlCommand cmd = new SqlCommand("update all_personnel set user_name='" + user_name + "',position='" + position + "', department='" + department + "'where user_id=" + user_id + "; update all_user set user_password='" + user_password + "'where user_id=" + user_id + "", conn);
         conn.Open();
         cmd.ExecuteNonQuery();
         conn.Close();

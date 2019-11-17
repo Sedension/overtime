@@ -28,7 +28,7 @@
         var bIsWM = sUserAgent.match(/windows mobile/i) == "windows mobile";
         if (bIsIpad || bIsIphoneOs || bIsMidp || bIsUc7 || bIsUc || bIsAndroid || bIsCE || bIsWM) {
             //跳转移动端页面
-            window.location.href = "login.aspx";
+            window.location.href = "login-moblie.aspx";
         } else {
             //跳转pc端页面
 

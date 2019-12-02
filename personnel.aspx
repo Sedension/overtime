@@ -122,25 +122,25 @@
                 <RowStyle BackColor="#F7F6F3" Height="35px" HorizontalAlign="Center" ForeColor="#333333" />
             </asp:GridView>
             <div>
-                <div class="table">
+                <div class="table table-width">
                     <div class="table-left">部门：</div>
                     <div class="table-right">
                         <asp:Label ID="Label3" runat="server" Text="Label"></asp:Label>
                     </div>
                 </div>
-                <div class="table">
+                <div class="table table-width">
                     <div class="table-left">加班人员：</div>
                     <div class="table-right">
                         <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
                     </div>
                 </div>
-                <div class="table">
+                <div class="table table-width">
                     <div class="table-left">总加班时间(小时)：</div>
                     <div class="table-right">
                         <asp:Label ID="Label5" runat="server" Text="Label"></asp:Label>
                     </div>
                 </div>
-                <div class="table">
+                <div class="table table-width">
                     <div class="table-left">总加班时间(天数)：</div>
                     <div class="table-right">
                         <asp:Label ID="Label6" runat="server" Text="Label"></asp:Label>

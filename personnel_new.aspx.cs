@@ -9,6 +9,10 @@ public partial class personnel_new : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["user_name"] == null)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+        }
         foreach (Control item in form1.Controls)
         {
             if (item is TextBox)

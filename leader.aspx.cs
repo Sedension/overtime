@@ -9,10 +9,9 @@ public partial class leader : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        databind();
         if (!IsPostBack)
         {
-
+            databind();
         }
         foreach (Control item in form1.Controls)
         {
@@ -25,16 +24,22 @@ public partial class leader : System.Web.UI.Page
     }
     public void databind()
     {
-
-        SqlConnection conn = new SqlConnection();
-        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        string department = Session["department"].ToString();
-        SqlCommand cmd = new SqlCommand("select * from all_project where department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
-        adp.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+        if (Session["user_name"] == null && Session["department"] == null)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+        }
+        else
+        {
+            SqlConnection conn = new SqlConnection();
+            conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+            string department = Session["department"].ToString();
+            SqlCommand cmd = new SqlCommand("select * from all_project where department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
+            DataTable dt1 = new DataTable();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
+            adp.Fill(dt1);
+            GridView1.DataSource = dt1;
+            GridView1.DataBind();
+        }
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
     {
@@ -72,7 +77,11 @@ public partial class leader : System.Web.UI.Page
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
             string department = Session["department"].ToString();
             SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + ceshi + "%'and department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
+
+            //SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '% @ceshi %'and department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
+            
             conn.Open();//打开连接
+            //cmd.Parameters.AddWithValue("@ceshi", ceshi);
             cmd.ExecuteNonQuery();
             SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
             if (dr1.Read())  //while

@@ -10,6 +10,10 @@ public partial class leader_personnel : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (Session["user_name"] == null)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+            }
             databind();
         }
     }

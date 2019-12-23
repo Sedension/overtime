@@ -13,12 +13,13 @@ public partial class personnel : System.Web.UI.Page
 
         if (!IsPostBack)
         {
-            if (Session["user_name"] == null)
+            if (Session["user_name"] == null && Session["department"] == null)
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
             }
             else
             {
+                {
                 Label3.Text = Session["user_name"].ToString();
                 Label4.Text = Session["department"].ToString();
                 SqlConnection conn = new SqlConnection();

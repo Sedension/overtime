@@ -9,6 +9,10 @@ public partial class leader_release : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
+        if (Session["user_name"] == null)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+        }
         foreach (Control item in form1.Controls)
         {
             if (item is TextBox)
@@ -47,7 +51,7 @@ public partial class leader_release : System.Web.UI.Page
 
     protected void Button2_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text.Trim() != "" && TextBox4.Text.Trim() != "" && TextBox5.Text.Trim() != "" && TextBox6.Text.Trim() != "")
+        if (TextBox1.Text.Trim() != ""  && DropDownList2.Text.Trim() != "0" && TextBox4.Text.Trim() != "" && TextBox5.Text.Trim() != "" && TextBox6.Text.Trim() != "" && TextBox7.Text.Trim() != "")
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
@@ -61,7 +65,6 @@ public partial class leader_release : System.Web.UI.Page
         else
         {
             ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('输入信息要完整')</script>");
-
         }
     }
     protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)

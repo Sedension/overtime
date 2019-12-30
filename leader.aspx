@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="leader.aspx.cs" Inherits="leader" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,15 +20,15 @@
             //日期时间选择器
             laydate.render({
                 elem: '#TextBox8'
-              , type: 'time'
+                , type: 'time'
             });
             laydate.render({
                 elem: '#TextBox6'
-               , type: 'time'
+                , type: 'time'
             });
             laydate.render({
                 elem: '#TextBox3'
-               , type: 'date'
+                , type: 'date'
             });
         });
     </script>
@@ -93,14 +92,14 @@
             </div>
             <div style="height: 50px; width: 100%; margin-top: 10%;">
                 <div class="table-left">
-                    <asp:Button ID="Button3" runat="server" Text="编辑" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button3_Click" />
+                    <asp:Button ID="Button3" runat="server" Text="编辑" CssClass="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button3_Click" />
                 </div>
                 <div class="table-right-1">
-                    <asp:Button ID="Button4" runat="server" Text="关闭" class="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button4_Click" />
+                    <asp:Button ID="Button4" runat="server" Text="关闭" CssClass="layui-btn layui-btn-primary layui-btn-sm" OnClick="Button4_Click" />
                 </div>
             </div>
         </div>
-        <div class="div2" id="light1" >
+        <div class="div2" id="light1">
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" EnableModelValidation="True" OnSelectedIndexChanging="GridView1_SelectedIndexChanging" OnPageIndexChanging="GridView1_PageIndexChanging1" AllowPaging="True" PageSize="15">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
@@ -127,9 +126,8 @@
                 <asp:ListItem Value="user_name">名字</asp:ListItem>
                 <asp:ListItem Value="review">审核状态</asp:ListItem>
             </asp:DropDownList>
-            <input type="text" id="ceshi" runat="server">
-            &nbsp;<asp:Button ID="Button1" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
-            <asp:Button ID="Button2" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button2_Click" Text="查询全部" />
+            <asp:TextBox ID="input" runat="server"></asp:TextBox>
+            <asp:Button ID="Button1" runat="server" CssClass="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
         </div>
     </form>
 </body>

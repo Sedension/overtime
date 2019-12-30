@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -9,26 +8,25 @@ public partial class personnel_new : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user_name"] == null)
-        {
-            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
-        }
-        foreach (Control item in form1.Controls)
-        {
-            if (item is TextBox)
-            {
-                ((TextBox)item).Attributes.Add("autocomplete", "off");
-            }
-        }
-
         if (!IsPostBack)
         {
+            if (Session["user_name"] == null)
+            {
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+            }
+            foreach (Control item in form1.Controls)
+            {
+                if (item is TextBox)
+                {
+                    ((TextBox)item).Attributes.Add("autocomplete", "off");
+                }
+            }
             string department = Session["department"].ToString();
             Label1.Text = department;
             string user_id = Session["user_id"].ToString();
             SqlConnection conn1 = new SqlConnection();
             conn1.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd1 = new SqlCommand("select * from all_personnel where user_id='" + user_id + "'", conn1);//访问数据库的SQL语句存到了cmd中
+            SqlCommand cmd1 = new SqlCommand("select * from all_personnel where user_id='" + user_id + "'", conn1);
             conn1.Open();
             SqlDataReader dr1 = cmd1.ExecuteReader();
             if (dr1.Read())
@@ -37,7 +35,6 @@ public partial class personnel_new : System.Web.UI.Page
             }
             conn1.Close();
         }
-
     }
     protected void Button1_Click1(object sender, EventArgs e)
     {
@@ -49,7 +46,6 @@ public partial class personnel_new : System.Web.UI.Page
             }
         }
     }
-
     protected void Button2_Click(object sender, EventArgs e)
     {
         if (TextBox1.Text.Trim() != "" && TextBox4.Text.Trim() != "" && TextBox5.Text.Trim() != "" && TextBox6.Text.Trim() != "")

@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Web.Security;
 
 public partial class leader_menu : System.Web.UI.Page
@@ -17,7 +15,7 @@ public partial class leader_menu : System.Web.UI.Page
         }
 
     }
-    protected void loginOut(object sender, EventArgs e)
+    protected void LoginOut(object sender, EventArgs e)
     {
         Session.Abandon();
         FormsAuthentication.SignOut();

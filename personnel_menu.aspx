@@ -12,7 +12,7 @@
         <div class="layui-layout layui-layout-admin">
             <div class="layui-header">
                 <div class="layui-logo">
-                    <h2>加班管理系统<h2>
+                    <h2>加班管理系统</h2>
                 </div>
                 <!-- 头部区域 -->
                 <ul class="layui-nav layui-layout-right">
@@ -21,7 +21,7 @@
                             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                         </a>
                     </li>
-                    <li class="layui-nav-item"><a href="javascript:(0)" onserverclick="loginOut" runat="server">退出登录</a></li>
+                    <li class="layui-nav-item"><a href="javascript:(0)" onserverclick="LoginOut" runat="server">退出登录</a></li>
                 </ul>
             </div>
             <div class="layui-side layui-bg-black">
@@ -37,17 +37,10 @@
                     </ul>
                 </div>
             </div>
-
             <div class="layui-body" style="bottom: 0px">
                 <!-- 内容主体区域 -->
                 <div>
-
-                    <iframe id="ifm" src="personnel.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=700">
-
-                        <%--<iframe id="ifm" src="default.aspx" frameborder="0" width="100%" height="480" style="margin:0px 0px 0px 10px">--%>
-
-                    </iframe>
-
+                    <iframe id="ifm" src="personnel.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=650"></iframe>
                 </div>
             </div>
         </div>
@@ -61,8 +54,6 @@
         function showMenu(src) {
             document.getElementById("ifm").src = src;
         }
-
-
         function reinitIframe() {
             var iframe = document.getElementById("ifm");
             try {

@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="admin_menu.aspx.cs" Inherits="admin_menu" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +12,7 @@
         <div class="layui-layout layui-layout-admin">
             <div class="layui-header">
                 <div class="layui-logo">
-                    <h2>加班管理系统<h2>
+                    <h2>加班管理系统</h2>
                 </div>
                 <!-- 头部区域 -->
                 <ul class="layui-nav layui-layout-right">
@@ -22,7 +21,7 @@
                             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                         </a>
                     </li>
-                    <li class="layui-nav-item"><a href="javascript:(0)" onserverclick="loginOut" runat="server">退出登录</a></li>
+                    <li class="layui-nav-item"><a href="javascript:(0)" onserverclick="LoginOut" runat="server">退出登录</a></li>
                 </ul>
             </div>
             <div class="layui-side layui-bg-black">
@@ -50,13 +49,10 @@
                     </ul>
                 </div>
             </div>
-
             <div class="layui-body" style="bottom: 0px">
                 <!-- 内容主体区域 -->
                 <div>
-
-                    <iframe id="ifm" src="admin.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=700"></iframe>
-
+                    <iframe id="ifm" src="admin.aspx" frameborder="0" scrolling="no" width="100%" onload="this.height=650"></iframe>
                 </div>
             </div>
         </div>

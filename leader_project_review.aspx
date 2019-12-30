@@ -1,7 +1,6 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="leader_project_review.aspx.cs" Inherits="leader_project_review" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -21,15 +20,15 @@
             //日期时间选择器
             laydate.render({
                 elem: '#TextBox8'
-              , type: 'time'
+                , type: 'time'
             });
             laydate.render({
                 elem: '#TextBox6'
-               , type: 'time'
+                , type: 'time'
             });
             laydate.render({
                 elem: '#TextBox3'
-               , type: 'date'
+                , type: 'date'
             });
         });
     </script>
@@ -102,7 +101,7 @@
                 </div>
             </div>
         </div>
-        <div class="div2" id="light1" >
+        <div class="div2" id="light1">
             <asp:GridView ID="GridView1" runat="server" AutoGenerateColumns="False" Width="100%" CellPadding="4" ForeColor="#333333" GridLines="None" EnableModelValidation="True" OnSelectedIndexChanging="GridView1_SelectedIndexChanging" OnPageIndexChanging="GridView1_PageIndexChanging1" AllowPaging="True" PageSize="15">
                 <AlternatingRowStyle BackColor="White" ForeColor="#284775" />
                 <Columns>
@@ -111,7 +110,6 @@
                     <asp:BoundField DataField="user_name" HeaderText="姓名" />
                     <asp:BoundField DataField="project_time" HeaderText="时长(单位/分钟)" />
                     <asp:BoundField DataField="review" HeaderText="审核状态" />
-
                     <asp:CommandField ButtonType="Button" SelectText="详情" ShowSelectButton="True">
                         <ControlStyle CssClass="layui-btn layui-btn-primary layui-btn-sm" />
                     </asp:CommandField>
@@ -131,7 +129,7 @@
                 <asp:ListItem Value="review">审核状态</asp:ListItem>
             </asp:DropDownList>
             <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
-            &nbsp;<asp:Button ID="Button1" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
+            <asp:Button ID="Button1" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
             <asp:Button ID="Button2" runat="server" class="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button2_Click" Text="查询全部" />
         </div>
     </form>

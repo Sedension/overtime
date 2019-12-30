@@ -17,57 +17,53 @@ public partial class leader_project_review : System.Web.UI.Page
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
             }
-            databind();
-        }
-        foreach (Control item in form1.Controls)
-        {
-            if (item is TextBox)
+            Databind();
+            foreach (Control item in form1.Controls)
             {
-                ((TextBox)item).Attributes.Add("readonly", "False");
-                ((TextBox)item).Attributes.Add("autocomplete", "off");
+                if (item is TextBox)
+                {
+                    ((TextBox)item).Attributes.Add("readonly", "False");
+                    ((TextBox)item).Attributes.Add("autocomplete", "off");
+                }
             }
         }
     }
-    public void databind()
+    public void Databind()
     {
         string department = Session["department"].ToString();
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project  where department='" + department + "'and review='未审核'", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_project  where department='" + department + "'and review='未审核'", conn);
         DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
+        SqlDataAdapter adp = new SqlDataAdapter(cmd);
         adp.Fill(dt1);
-
-
         GridView1.DataSource = dt1;
         GridView1.DataBind();
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
     {
         GridView1.PageIndex = e.NewPageIndex;
-        databind();
+        Databind();
     }
 
-    public void databind1()
+    public void Databind1()
     {
         string department = Session["department"].ToString();
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'and department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
+        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'and department='" + department + "'", conn);
         DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
+        SqlDataAdapter adp = new SqlDataAdapter(cmd);
         adp.Fill(dt1);
 
 
         GridView1.DataSource = dt1;
         GridView1.DataBind();
     }
-
     protected void Button2_Click(object sender, EventArgs e)
     {
-        databind();
+        Databind();
     }
-
     protected void Button1_Click(object sender, EventArgs e)
     {
         if (TextBox1.Text.Trim() != "")
@@ -75,19 +71,19 @@ public partial class leader_project_review : System.Web.UI.Page
             string department = Session["department"].ToString();
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'and department='" + department + "'", conn);//访问数据库的SQL语句存到了cmd中
-            conn.Open();//打开连接
+            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'and department='" + department + "'", conn);
+            conn.Open();
             cmd.ExecuteNonQuery();
-            SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
-            if (dr1.Read())  //while
+            SqlDataReader dr1 = cmd.ExecuteReader();
+            if (dr1.Read())
             {
-                databind1();
+                Databind1();
             }
             else
             {
                 ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
             }
-            conn.Close();//关闭连接
+            conn.Close();
         }
         else
         {
@@ -101,9 +97,9 @@ public partial class leader_project_review : System.Web.UI.Page
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
         SqlCommand cmd = new SqlCommand("select * from all_project where Date_ID=" + id + "", conn);
-        conn.Open();//打开连接
-        SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
-        if (dr1.Read())  //while
+        conn.Open();
+        SqlDataReader dr1 = cmd.ExecuteReader();
+        if (dr1.Read())
         {
             Label1.Text = dr1["Date_ID"].ToString();
             TextBox3.Text = Convert.ToDateTime(dr1["project_date"]).ToString("yyyy-MM-dd");
@@ -115,10 +111,8 @@ public partial class leader_project_review : System.Web.UI.Page
             TextBox9.Text = dr1["details"].ToString();
             TextBox10.Text = dr1["remarks"].ToString();
         }
-        conn.Close();//关闭连接
-
+        conn.Close();
     }
-
     protected void Button3_Click(object sender, EventArgs e)
     {
         string department = Session["department"].ToString();
@@ -129,15 +123,13 @@ public partial class leader_project_review : System.Web.UI.Page
         conn.Open();
         cmd.ExecuteNonQuery();
         conn.Close();
-        databind();
+        Databind();
         ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
     }
-
     protected void Button4_Click(object sender, EventArgs e)
     {
         ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
     }
-
     protected void Button5_Click(object sender, EventArgs e)
     {
         string department = Session["department"].ToString();
@@ -148,7 +140,7 @@ public partial class leader_project_review : System.Web.UI.Page
         conn.Open();
         cmd.ExecuteNonQuery();
         conn.Close();
-        databind();
+        Databind();
         ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
     }
 }

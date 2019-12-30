@@ -1,11 +1,10 @@
 ﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Login.aspx.cs" Inherits="login" %>
 
 <!DOCTYPE html>
-
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
     <title>系统登录界面</title>
     <link href="css/css.css" rel="stylesheet" />
     <style>
@@ -21,7 +20,7 @@
             <div class="login-text">加班管理系统</div>
             <div class="login-table">
                 <div class="login-input">
-                    <asp:TextBox ID="TextBox1" runat="server" value="请输入数字账号" MaxLength="10" CssClass="input"></asp:TextBox>
+                    <asp:TextBox ID="TextBox1" runat="server" MaxLength="10" CssClass="input">请输入数字账号</asp:TextBox>
                 </div>
             </div>
             <div class="login-table">

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
@@ -32,10 +31,9 @@ public partial class admin_personnel_insert : System.Web.UI.Page
             }
         }
     }
-
     protected void Button2_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text.Trim() != "" && TextBox2.Text.Trim() != "" &&  TextBox3.Text.Trim() != "" && TextBox4.Text.Trim() != "" &&  TextBox5.Text.Trim() != "")
+        if (TextBox1.Text.Trim() != "" && TextBox2.Text.Trim() != "" && TextBox3.Text.Trim() != "" && TextBox4.Text.Trim() != "" && TextBox5.Text.Trim() != "")
         {
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];

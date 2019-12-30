@@ -2,7 +2,6 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
-using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -20,93 +19,78 @@ public partial class personnel : System.Web.UI.Page
             else
             {
                 {
-                Label3.Text = Session["user_name"].ToString();
-                Label4.Text = Session["department"].ToString();
-                SqlConnection conn = new SqlConnection();
-                conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-                SqlCommand cmd = new SqlCommand("select sum (project_time) as project_time from all_project where user_name='" + Label3.Text + "'and department='" + Label4.Text + "'", conn);
-                conn.Open();
-                SqlDataReader dr1 = cmd.ExecuteReader();
-                if (dr1.Read())
-                {
-                    string time = dr1["project_time"].ToString();
-                    double time1 = Convert.ToDouble(time);
-                    Label5.Text = Math.Round(time1 / 60, 1).ToString();
-                    Label6.Text = Math.Round(time1 / 60 / 8, 1).ToString();
+                    Label3.Text = Session["user_name"].ToString();
+                    Label4.Text = Session["department"].ToString();
+                    SqlConnection conn = new SqlConnection();
+                    conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+                    SqlCommand cmd = new SqlCommand("select sum (project_time) as project_time from all_project where user_name='" + Label3.Text + "'and department='" + Label4.Text + "'", conn);
+                    conn.Open();
+                    SqlDataReader dr1 = cmd.ExecuteReader();
+                    if (dr1.Read())
+                    {
+                        string time = dr1["project_time"].ToString();
+                        double time1 = Convert.ToDouble(time);
+                        Label5.Text = Math.Round(time1 / 60, 1).ToString();
+                        Label6.Text = Math.Round(time1 / 60 / 8, 1).ToString();
+                    }
+                    conn.Close();
+                    Databind();
                 }
-                conn.Close();
-                databind();
-            }
 
-        }
-        foreach (Control item in form1.Controls)
-        {
-            if (item is TextBox)
+            }
+            foreach (Control item in form1.Controls)
             {
-                ((TextBox)item).Attributes.Add("autocomplete", "off");
+                if (item is TextBox)
+                {
+                    ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    ((TextBox)item).Attributes.Add("readonly", "True");
+                    input.Attributes.Remove("readonly");
+                }
             }
         }
     }
-    public void databind()
+    public void Databind()
     {
-        string user_name = Session["user_name"].ToString();
-        SqlConnection conn = new SqlConnection();
-        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where user_name='" + user_name + "'", conn);//访问数据库的SQL语句存到了cmd中
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
-        adp.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
-    }
-    protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
-    {
-        GridView1.PageIndex = e.NewPageIndex;
-        databind();
-    }
-
-    public void databind1()
-    {
-        string user_name = Session["user_name"].ToString();
-        string ceshi = Request.Form["ceshi"];
-        SqlConnection conn = new SqlConnection();
-        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + ceshi + "%'and user_name='" + user_name + "'", conn);//访问数据库的SQL语句存到了cmd中
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);//数据适配器 执行cmd
-        adp.Fill(dt1);
-
-
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
-    }
-
-    protected void Button2_Click(object sender, EventArgs e)
-    {
-        databind();
-    }
-
-    protected void Button1_Click(object sender, EventArgs e)
-    {
-        string ceshi = Request.Form["ceshi"];
-        if (ceshi != "")
+        if (Session["user_name"] == null)
+        {
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+        }
+        else
         {
             string user_name = Session["user_name"].ToString();
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + ceshi + "%'and user_name='" + user_name + "'", conn);//访问数据库的SQL语句存到了cmd中
-            conn.Open();//打开连接
-            cmd.ExecuteNonQuery();
-            SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
-            if (dr1.Read())  //while
+            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + input.Text.Trim() + "%'and user_name='" + user_name + "'", conn);
+            conn.Open();
+            SqlDataReader dr1 = cmd.ExecuteReader();
+            if (dr1.Read())
             {
-                databind1();
+                conn.Close();
+                DataTable dt1 = new DataTable();
+                SqlDataAdapter adp = new SqlDataAdapter(cmd);
+                adp.Fill(dt1);
+                GridView1.DataSource = dt1;
+                GridView1.DataBind();
             }
             else
             {
+                input.Text = "";
+                Databind();
                 ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
             }
-            conn.Close();//关闭连接
+        }
+    }
+    protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
+    {
+        GridView1.PageIndex = e.NewPageIndex;
+        Databind();
+    }
+
+    protected void Button1_Click(object sender, EventArgs e)
+    {
+        if (input.Text.Trim() != "")
+        {
+            Databind();
         }
         else
         {
@@ -120,9 +104,9 @@ public partial class personnel : System.Web.UI.Page
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
         SqlCommand cmd = new SqlCommand("select * from all_project where Date_ID=" + id + "", conn);
-        conn.Open();//打开连接
-        SqlDataReader dr1 = cmd.ExecuteReader();  //创建获取datareader
-        if (dr1.Read())  //while
+        conn.Open();
+        SqlDataReader dr1 = cmd.ExecuteReader();
+        if (dr1.Read())
         {
             Label1.Text = dr1["Date_ID"].ToString();
             TextBox3.Text = Convert.ToDateTime(dr1["project_date"]).ToString("yyyy-MM-dd");
@@ -134,7 +118,7 @@ public partial class personnel : System.Web.UI.Page
             TextBox9.Text = dr1["details"].ToString();
             TextBox10.Text = dr1["remarks"].ToString();
         }
-        conn.Close();//关闭连接
+        conn.Close();
         foreach (Control item in form1.Controls)
         {
             if (item is TextBox)
@@ -143,7 +127,6 @@ public partial class personnel : System.Web.UI.Page
             }
         }
     }
-
     protected void Button3_Click(object sender, EventArgs e)
     {
         string pan = Button3.Text.ToString();
@@ -159,7 +142,6 @@ public partial class personnel : System.Web.UI.Page
             Button3.Text = "保存";
             Button4.Text = "取消";
             ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
-
         }
         if (pan == "保存")
         {
@@ -179,20 +161,18 @@ public partial class personnel : System.Web.UI.Page
             conn.Close();
             SqlCommand cmd1 = new SqlCommand("select * from all_project where Date_ID=" + id + "", conn);
             conn.Open();
-            SqlDataReader dr1 = cmd1.ExecuteReader();  //创建获取datareader
-            if (dr1.Read())  //while
+            SqlDataReader dr1 = cmd1.ExecuteReader();
+            if (dr1.Read())
             {
                 Label2.Text = dr1["project_time"].ToString() + "分钟";
             }
             conn.Close();
-            databind();
+            Databind();
             Button3.Text = "编辑";
             Button4.Text = "关闭";
             ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
         }
-
     }
-
     protected void Button4_Click(object sender, EventArgs e)
     {
         string pan = Button4.Text.ToString();

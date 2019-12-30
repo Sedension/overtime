@@ -12,9 +12,9 @@ public partial class leader_personnel : System.Web.UI.Page
         {
             if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
-            Databind();
+            else Databind();
         }
     }
     public void Databind()

@@ -8,14 +8,13 @@ public partial class admin_admin_project_review : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (!IsPostBack)
         {
             if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
-            Databind();
+            else Databind();
         }
     }
     public void Databind()

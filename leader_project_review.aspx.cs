@@ -15,9 +15,9 @@ public partial class leader_project_review : System.Web.UI.Page
         {
             if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
-            Databind();
+            else Databind();
             foreach (Control item in form1.Controls)
             {
                 if (item is TextBox)

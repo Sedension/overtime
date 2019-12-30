@@ -21,7 +21,7 @@
                             <asp:Label ID="Label1" runat="server" Text="Label"></asp:Label>
                         </a>
                     </li>
-                    <li class="layui-nav-item"><a href="javascript:(0)" onserverclick="LoginOut" runat="server">退出登录</a></li>
+                    <li class="layui-nav-item"><a href="javascript:(0)" onserverclick="loginOut" runat="server">退出登录</a></li>
                 </ul>
             </div>
             <div class="layui-side layui-bg-black">

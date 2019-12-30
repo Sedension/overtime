@@ -13,9 +13,9 @@ public partial class admin : System.Web.UI.Page
         {
             if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
-            Databind();
+            else Databind();
             foreach (Control item in form1.Controls)
             {
                 if (item is TextBox)
@@ -148,6 +148,7 @@ public partial class admin : System.Web.UI.Page
         if (pan == "关闭")
         {
             ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+            input.Attributes.Remove("readonly");
         }
         if (pan == "取消")
         {
@@ -164,3 +165,4 @@ public partial class admin : System.Web.UI.Page
         }
     }
 }
+

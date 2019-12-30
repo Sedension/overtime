@@ -8,18 +8,20 @@ public partial class admin_personnel_insert : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user_name"] == null)
+        if (!IsPostBack)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
-        }
-        foreach (Control item in form1.Controls)
-        {
-            if (item is TextBox)
+            if (Session["user_name"] == null)
             {
-                ((TextBox)item).Attributes.Add("autocomplete", "off");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
+            else foreach (Control item in form1.Controls)
+                {
+                    if (item is TextBox)
+                    {
+                        ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    }
+                }
         }
-
     }
     protected void Button1_Click1(object sender, EventArgs e)
     {

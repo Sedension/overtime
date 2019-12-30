@@ -13,15 +13,15 @@ public partial class admin_project_data : System.Web.UI.Page
         {
             if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
-            foreach (Control item in form1.Controls)
-            {
-                if (item is TextBox)
+            else foreach (Control item in form1.Controls)
                 {
-                    ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    if (item is TextBox)
+                    {
+                        ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    }
                 }
-            }
             SqlConnection conn = new SqlConnection();
             conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
             SqlCommand cmd = new SqlCommand("select distinct department from all_personnel", conn);

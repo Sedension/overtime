@@ -7,11 +7,11 @@ public partial class personnel_menu : System.Web.UI.Page
     {
         if (Session["user_name"] == null)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+            Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
         }
-        Label1.Text = Session["user_name"].ToString();
+        else Label1.Text = Session["user_name"].ToString();
     }
-    protected void LoginOut(object sender, EventArgs e)
+    protected void loginOut(object sender, EventArgs e)
     {
         Session.Abandon();
         FormsAuthentication.SignOut();

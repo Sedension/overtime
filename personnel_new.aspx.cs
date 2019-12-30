@@ -12,15 +12,15 @@ public partial class personnel_new : System.Web.UI.Page
         {
             if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
-            foreach (Control item in form1.Controls)
-            {
-                if (item is TextBox)
+            else foreach (Control item in form1.Controls)
                 {
-                    ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    if (item is TextBox)
+                    {
+                        ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    }
                 }
-            }
             string department = Session["department"].ToString();
             Label1.Text = department;
             string user_id = Session["user_id"].ToString();

@@ -9,12 +9,11 @@ public partial class personnel : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
         if (!IsPostBack)
         {
-            if (Session["user_name"] == null && Session["department"] == null)
+            if (Session["user_name"] == null)
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
             else
             {
@@ -36,7 +35,6 @@ public partial class personnel : System.Web.UI.Page
                     conn.Close();
                     Databind();
                 }
-
             }
             foreach (Control item in form1.Controls)
             {

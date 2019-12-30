@@ -5,7 +5,7 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no" />
-    <title>系统登录界面</title>
+    <title>系统登录</title>
     <link href="css/css.css" rel="stylesheet" />
     <style>
         .bg {

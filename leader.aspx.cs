@@ -11,7 +11,11 @@ public partial class leader : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
-            Databind();
+            if (Session["user_name"] == null)
+            {
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
+            }
+            else Databind();
             foreach (Control item in form1.Controls)
             {
                 if (item is TextBox)

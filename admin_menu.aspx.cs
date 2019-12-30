@@ -5,17 +5,19 @@ public partial class admin_menu : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (Session["user_name"] == null)
+        if (!IsPostBack)
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+            if (Session["user_name"] == null)
+            {
+                Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
+            }
+            else
+            {
+                Label1.Text = Session["user_name"].ToString();
+            }
         }
-        else
-        {
-            Label1.Text = Session["user_name"].ToString();
-        }
-
     }
-    protected void LoginOut(object sender, EventArgs e)
+    protected void loginOut(object sender, EventArgs e)
     {
         Session.Abandon();
         FormsAuthentication.SignOut();

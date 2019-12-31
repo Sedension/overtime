@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web.UI;
 using System.Web.UI.WebControls;
 
 public partial class admin_admin_project_review : System.Web.UI.Page
@@ -15,18 +16,40 @@ public partial class admin_admin_project_review : System.Web.UI.Page
                 Response.Write("<script>alert('请重新登录！');location.href='Login.aspx';</script>");
             }
             else Databind();
+            foreach (Control item in form1.Controls)
+            {
+                if (item is TextBox)
+                {
+                    ((TextBox)item).Attributes.Add("autocomplete", "off");
+                    ((TextBox)item).Attributes.Add("readonly", "True");
+                    input.Attributes.Remove("readonly");
+                }
+            }
         }
     }
     public void Databind()
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);
-        adp.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like +'%'  + @UserName +'%'", conn);
+        cmd.Parameters.Add(new SqlParameter("@UserName", input.Text.Trim()));
+        conn.Open();
+        SqlDataReader dr1 = cmd.ExecuteReader();
+        if (dr1.Read())
+        {
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(dt1);
+            GridView1.DataSource = dt1;
+            GridView1.DataBind();
+        }
+        else
+        {
+            input.Text = "";
+            Databind();
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
+        }
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
     {
@@ -35,7 +58,7 @@ public partial class admin_admin_project_review : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text.Trim() != "")
+        if (input.Text.Trim() != "")
         {
             Databind();
         }
@@ -78,10 +101,12 @@ public partial class admin_admin_project_review : System.Web.UI.Page
         conn.Close();
         Databind();
         ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+        input.Attributes.Remove("readonly");
     }
     protected void Button4_Click(object sender, EventArgs e)
     {
         ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+        input.Attributes.Remove("readonly");
     }
     protected void Button5_Click(object sender, EventArgs e)
     {
@@ -94,5 +119,6 @@ public partial class admin_admin_project_review : System.Web.UI.Page
         conn.Close();
         Databind();
         ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+        input.Attributes.Remove("readonly");
     }
 }

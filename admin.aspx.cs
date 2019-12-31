@@ -31,7 +31,8 @@ public partial class admin : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + input.Text.Trim() + "%'", conn);
+        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like +'%'  + @UserName +'%' ", conn);
+        cmd.Parameters.Add(new SqlParameter("@UserName", input.Text.Trim()));
         conn.Open();
         SqlDataReader dr1 = cmd.ExecuteReader();
         if (dr1.Read())

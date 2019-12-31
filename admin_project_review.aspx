@@ -126,9 +126,8 @@
             <asp:DropDownList ID="DropDownList1" runat="server" Font-Names="宋体" Font-Size="10pt">
                 <asp:ListItem Value="Date_ID">任务编号</asp:ListItem>
                 <asp:ListItem Value="user_name">名字</asp:ListItem>
-                <asp:ListItem Value="review">审核状态</asp:ListItem>
             </asp:DropDownList>
-            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <asp:TextBox ID="input" runat="server"></asp:TextBox>
             &nbsp;<asp:Button ID="Button1" runat="server" CssClass="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
         </div>
     </form>

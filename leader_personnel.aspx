@@ -36,9 +36,8 @@
                 <asp:ListItem Value="position">职位</asp:ListItem>
                 <asp:ListItem Value="department">部门</asp:ListItem>
             </asp:DropDownList>
-            <asp:TextBox ID="TextBox1" runat="server"></asp:TextBox>
+            <asp:TextBox ID="input" runat="server"></asp:TextBox>
             <asp:Button ID="Button1" runat="server" CssClass="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button1_Click" Text="查询" />
-            <asp:Button ID="Button2" runat="server" CssClass="layui-btn layui-btn-primary layui-btn-xs" OnClick="Button2_Click" Text="查询全部" />
         </div>
     </form>
 </body>

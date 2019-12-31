@@ -21,12 +21,25 @@ public partial class admin_personnel : System.Web.UI.Page
     {
         SqlConnection conn = new SqlConnection();
         conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-        SqlCommand cmd = new SqlCommand("select * from  v_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);
-        DataTable dt1 = new DataTable();
-        SqlDataAdapter adp = new SqlDataAdapter(cmd);
-        adp.Fill(dt1);
-        GridView1.DataSource = dt1;
-        GridView1.DataBind();
+        SqlCommand cmd = new SqlCommand("select * from  v_personnel where " + DropDownList1.Text + " like +'%'  + @UserName +'%' ", conn);
+        cmd.Parameters.Add(new SqlParameter("@UserName", input.Text.Trim()));
+        conn.Open();
+        SqlDataReader dr1 = cmd.ExecuteReader();
+        if (dr1.Read())
+        {
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(dt1);
+            GridView1.DataSource = dt1;
+            GridView1.DataBind();
+        }
+        else
+        {
+            input.Text = "";
+            Databind();
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
+        }
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
     {
@@ -45,25 +58,9 @@ public partial class admin_personnel : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text.Trim() != "")
+        if (input.Text.Trim() != "")
         {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from  v_personnel where " + DropDownList1.Text + " like '%" + TextBox1.Text.Trim() + "%'", conn);
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            SqlDataReader dr1 = cmd.ExecuteReader();
-            if (dr1.Read())
-            {
-                Databind();
-            }
-            else
-            {
-                TextBox1.Text = "";
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
-                Databind();
-            }
-            conn.Close();
+            Databind();
         }
         else
         {

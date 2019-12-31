@@ -17,24 +17,22 @@ public partial class personnel : System.Web.UI.Page
             }
             else
             {
+                Label3.Text = Session["user_name"].ToString();
+                Label4.Text = Session["department"].ToString();
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+                SqlCommand cmd = new SqlCommand("select sum (project_time) as project_time from all_project where user_name='" + Label3.Text + "'and department='" + Label4.Text + "'", conn);
+                conn.Open();
+                SqlDataReader dr1 = cmd.ExecuteReader();
+                if (dr1.Read())
                 {
-                    Label3.Text = Session["user_name"].ToString();
-                    Label4.Text = Session["department"].ToString();
-                    SqlConnection conn = new SqlConnection();
-                    conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-                    SqlCommand cmd = new SqlCommand("select sum (project_time) as project_time from all_project where user_name='" + Label3.Text + "'and department='" + Label4.Text + "'", conn);
-                    conn.Open();
-                    SqlDataReader dr1 = cmd.ExecuteReader();
-                    if (dr1.Read())
-                    {
-                        string time = dr1["project_time"].ToString();
-                        double time1 = Convert.ToDouble(time);
-                        Label5.Text = Math.Round(time1 / 60, 1).ToString();
-                        Label6.Text = Math.Round(time1 / 60 / 8, 1).ToString();
-                    }
-                    conn.Close();
-                    Databind();
+                    string time = dr1["project_time"].ToString();
+                    double time1 = Convert.ToDouble(time);
+                    Label5.Text = Math.Round(time1 / 60, 1).ToString();
+                    Label6.Text = Math.Round(time1 / 60 / 8, 1).ToString();
                 }
+                conn.Close();
+                Databind();
             }
             foreach (Control item in form1.Controls)
             {
@@ -49,33 +47,27 @@ public partial class personnel : System.Web.UI.Page
     }
     public void Databind()
     {
-        if (Session["user_name"] == null)
+        string user_name = Session["user_name"].ToString();
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like +'%'  + @UserName +'%' and user_name='" + user_name + "'", conn);
+        cmd.Parameters.Add(new SqlParameter("@UserName", input.Text.Trim()));
+        conn.Open();
+        SqlDataReader dr1 = cmd.ExecuteReader();
+        if (dr1.Read())
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(dt1);
+            GridView1.DataSource = dt1;
+            GridView1.DataBind();
         }
         else
         {
-            string user_name = Session["user_name"].ToString();
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + input.Text.Trim() + "%'and user_name='" + user_name + "'", conn);
-            conn.Open();
-            SqlDataReader dr1 = cmd.ExecuteReader();
-            if (dr1.Read())
-            {
-                conn.Close();
-                DataTable dt1 = new DataTable();
-                SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                adp.Fill(dt1);
-                GridView1.DataSource = dt1;
-                GridView1.DataBind();
-            }
-            else
-            {
-                input.Text = "";
-                Databind();
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
-            }
+            input.Text = "";
+            Databind();
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
         }
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
@@ -177,6 +169,7 @@ public partial class personnel : System.Web.UI.Page
         if (pan == "关闭")
         {
             ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+            input.Attributes.Remove("readonly");
         }
         if (pan == "取消")
         {

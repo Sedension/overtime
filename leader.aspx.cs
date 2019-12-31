@@ -29,33 +29,27 @@ public partial class leader : System.Web.UI.Page
     }
     public void Databind()
     {
-        if (Session["user_name"] == null && Session["department"] == null)
+        string department = Session["department"].ToString();
+        SqlConnection conn = new SqlConnection();
+        conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+        SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like +'%'  + @UserName +'%' and department='" + department + "'", conn);
+        cmd.Parameters.Add(new SqlParameter("@UserName", input.Text.Trim()));
+        conn.Open();
+        SqlDataReader dr1 = cmd.ExecuteReader();
+        if (dr1.Read())
         {
-            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请重新登录！');location ='login.aspx';</script>");
+            conn.Close();
+            DataTable dt1 = new DataTable();
+            SqlDataAdapter adp = new SqlDataAdapter(cmd);
+            adp.Fill(dt1);
+            GridView1.DataSource = dt1;
+            GridView1.DataBind();
         }
         else
         {
-            string department = Session["department"].ToString();
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_project where " + DropDownList1.Text + " like '%" + input.Text.Trim() + "%'and department='" + department + "'", conn);
-            conn.Open();
-            SqlDataReader dr1 = cmd.ExecuteReader();
-            if (dr1.Read())
-            {
-                conn.Close();
-                DataTable dt1 = new DataTable();
-                SqlDataAdapter adp = new SqlDataAdapter(cmd);
-                adp.Fill(dt1);
-                GridView1.DataSource = dt1;
-                GridView1.DataBind();
-            }
-            else
-            {
-                input.Text = "";
-                Databind();
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
-            }
+            input.Text = "";
+            Databind();
+            ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('查询有误或没有查到想要的信息，请重新查询!')</script>");
         }
     }
     protected void GridView1_PageIndexChanging1(object sender, GridViewPageEventArgs e)
@@ -112,7 +106,6 @@ public partial class leader : System.Web.UI.Page
             Button3.Text = "保存";
             Button4.Text = "取消";
             ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>on();</script>");
-
         }
         if (pan == "保存")
         {
@@ -150,6 +143,7 @@ public partial class leader : System.Web.UI.Page
         if (pan == "关闭")
         {
             ClientScript.RegisterStartupScript(ClientScript.GetType(), "onclick", "<script>close();</script>");
+            input.Attributes.Remove("readonly");
         }
         if (pan == "取消")
         {

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Configuration;
-using System.Data;
 using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class login : System.Web.UI.Page
+public partial class Login : System.Web.UI.Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -33,48 +32,56 @@ public partial class login : System.Web.UI.Page
     }
     protected void Button1_Click(object sender, EventArgs e)
     {
-        if (TextBox1.Text.Trim()== "请输入数字账号")
+        if (TextBox1.Text.Trim() == "请输入数字账号")
         {
             ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('请输入账号！')</script>");
             this.TextBox2.Text = "";
         }
+
         if (TextBox1.Text.Trim() != "" && TextBox2.Text.Trim() != "")
         {
-            SqlConnection conn = new SqlConnection();
-            conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
-            SqlCommand cmd = new SqlCommand("select * from all_user where  user_id='" + TextBox1.Text.Trim() + "'", conn);
-            SqlCommand cmd1 = new SqlCommand("select * from all_personnel where user_id='" + TextBox1.Text.Trim() + "'", conn);
-            conn.Open();
-            SqlDataReader dr1 = cmd1.ExecuteReader();
-            if (dr1.Read())
+            try
             {
-                Session["department"] = dr1["department"].ToString();
-                Session["user_name"] = dr1["user_name"].ToString();
-            }
-            conn.Close();
-            conn.Open();
-            SqlDataReader dr2 = cmd.ExecuteReader();
-            if (dr2.Read())
-            {
-                if (TextBox2.Text == dr2["user_password"].ToString())
+                SqlConnection conn = new SqlConnection();
+                conn.ConnectionString = ConfigurationManager.AppSettings["ConnectionString"];
+                SqlCommand cmd = new SqlCommand("select * from all_user where  user_id='" + TextBox1.Text.Trim() + "'", conn);
+                SqlCommand cmd1 = new SqlCommand("select * from all_personnel where user_id='" + TextBox1.Text.Trim() + "'", conn);
+                conn.Open();
+                SqlDataReader dr1 = cmd1.ExecuteReader();
+                if (dr1.Read())
                 {
-                    Session["user_id"] = TextBox1.Text.Trim();
-                    Session["user_type"] = dr2["user_type"].ToString();
-                    string link = Session["user_type"].ToString();
-                    Response.Redirect("" + link + "_menu.aspx");
+                    Session["department"] = dr1["department"].ToString();
+                    Session["user_name"] = dr1["user_name"].ToString();
+                }
+                conn.Close();
+                conn.Open();
+                SqlDataReader dr2 = cmd.ExecuteReader();
+                if (dr2.Read())
+                {
+                    if (TextBox2.Text == dr2["user_password"].ToString())
+                    {
+                        Session["user_id"] = TextBox1.Text.Trim();
+                        Session["user_type"] = dr2["user_type"].ToString();
+                        string link = Session["user_type"].ToString();
+                        Response.Redirect("" + link + "_menu.aspx");
+                    }
+                    else
+                    {
+                        ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('密码不正确')</script>");
+                        Passwoererror();
+                    }
                 }
                 else
                 {
-                    ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('密码不正确')</script>");
+                    ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('此帐号不存在，请检查输入或者联系工作人员')</script>");
                     Passwoererror();
                 }
+                conn.Close();
             }
-            else
+            catch
             {
-                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('此帐号不存在，请检查输入或者联系工作人员')</script>");
-                Passwoererror();
+                ClientScript.RegisterStartupScript(this.GetType(), "js", "<script>alert('登录出错，服务器可能出现问题！')</script>");
             }
-            conn.Close();
         }
         else
         {
